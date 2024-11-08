@@ -11,12 +11,16 @@ app.use(express.json());
 
 mongoConfig();
 testConnection(); // This is to check MySQL connection
-
+app.get('/', (req, res) =>{
+  return res.status(200).json({message:"Welcome"});
+})
 app.use('/auth', authRoutes);
 app.use('/doctors', doctorRoutes);
 app.use('/patients', patientRoutes);
 app.use('/appointments', appointmentRoutes);
-
+app.use("*",(req,res)=>{
+    return res.json({message:"Wrong route"})
+})
 const PORT = process.env.PORT || 5005;
 
 app.listen(PORT, () => {
