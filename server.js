@@ -9,8 +9,8 @@ const appointmentRoutes = require('./routes/appointments');
 const app = express();
 app.use(express.json());
 
-mongoConfig();
-testConnection(); // This is to check MySQL connection
+await mongoConfig();
+await testConnection(); // This is to check MySQL connection
 app.get('/', (req, res) =>{
   return res.status(200).json({message:"Welcome"});
 })
