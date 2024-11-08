@@ -9,8 +9,7 @@ const appointmentRoutes = require('./routes/appointments');
 const app = express();
 app.use(express.json());
 
-await mongoConfig();
-await testConnection(); // This is to check MySQL connection
+ // This is to check MySQL connection
 app.get('/', (req, res) =>{
   return res.status(200).json({message:"Welcome"});
 })
@@ -23,6 +22,9 @@ app.use("*",(req,res)=>{
 })
 const PORT = process.env.PORT || 5005;
 
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
+  await mongoConfig();
+await testConnection();
+  console.log("DB Connected")
     console.log(`Server running on port ${PORT}`);
 });
